@@ -1,14 +1,24 @@
 from django.shortcuts import HttpResponse, render
 
-
+from post.models import Post
 # CBV - Class Based View
 # FBV - Function Based View
+# PEP8 - Python
+# snake_case, CamelCase
 
-def hello_view(request):
+def main_view(request):
     if request.method == 'GET':
-        return render(request, 'index.html')
+        posts = Post.objects.all()  # QuerySet
 
+        return render(request,'index.html')
 
-def test_view(request):
+def posts_view(request):
     if request.method == 'GET':
-        return HttpResponse('TEST VIEW')
+        posts = Post.objects.all()
+
+        context = {
+            "posts": posts,
+        }
+
+        return render(request,'posts/posts.html', context=context)
+
